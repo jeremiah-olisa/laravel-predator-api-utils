@@ -1,0 +1,23 @@
+{
+  "name": "jerrydepredator/laravel-predator-api-utils",
+  "description": "A collection of utility classes and traits to streamline common Laravel development tasks, including error handling, paginated responses, data handling, middleware creation, a base repository for advanced filtering, keyset pagination, base query filtering, and more. This package aims to reduce boilerplate code often encountered in Laravel projects.",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "LaravelPredatorApiUtils\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Jeremiah Olisa",
+      "email": "31079573+jeremiah-olisa@users.noreply.github.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "illuminate/http": "^11.31",
+    "illuminate/database": "^11.31",
+    "illuminate/contracts": "^11.31"
+  }
+}
