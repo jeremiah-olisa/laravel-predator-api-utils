@@ -241,7 +241,7 @@ abstract class BaseRepository
      */
     public function advancedCursorPaginate(array|string|null $queryParams = null, int $perPage = 15)
     {
-        return $this->customAdvancedCursorPaginate($queryParams, $perPage)->cursorPaginate($perPage);
+        return $this->customQueryPaginator($queryParams, $perPage)->cursorPaginate($perPage);
     }
 
     /**
@@ -249,7 +249,7 @@ abstract class BaseRepository
      * @param int $perPage
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function customAdvancedCursorPaginate(array|string|null $queryParams = null, int $perPage = 15): \Illuminate\Database\Eloquent\Builder
+    public function customQueryPaginator(array|string|null $queryParams = null, int $perPage = 15): \Illuminate\Database\Eloquent\Builder
     {
         data_forget($queryParams, 'per_page');
 
