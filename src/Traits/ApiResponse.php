@@ -41,7 +41,7 @@ trait ApiResponse
      * The function paginated_response takes a response, extracts the 'data' field, and separates it
      * from the rest of the response data.
      * 
-     * @param response The `paginated_response` function takes a response object as a parameter. This
+     * @param mixed The `paginated_response` function takes a response object as a parameter. This
      * response object typically contains paginated data, where the actual data is nested under a
      * 'data' key along with pagination information.
      * 
