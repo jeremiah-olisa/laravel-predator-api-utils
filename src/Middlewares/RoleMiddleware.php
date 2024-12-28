@@ -36,8 +36,10 @@ class RoleMiddleware
      * `` closure with the given request. If the user does not have the required role, it will
      * return a JSON response with a message indicating that the user
      */
-    public function handle(Request $request, Closure $next, DecryptedJWToken $decryptedJWToken, ...$roles): JsonResponse|RedirectResponse|Response
+    public function handle(Request $request, Closure $next, ...$roles): JsonResponse|RedirectResponse|Response
     {
+        $decryptedJWToken = new DecryptedJWToken($request);
+
         // Get the user's role (replace this with your actual logic to get the user's role)
         $userRole = $decryptedJWToken->getUserRole();
 
