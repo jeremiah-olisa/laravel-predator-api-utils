@@ -37,27 +37,27 @@ class DecryptJWToken
     {
         $token = $request->header('Authorization');
 
-        if ($token) {
-            $token = str_replace('Bearer ', '', $token);
+        if (!$token)
+            return new JsonResponse(['error' => 'Authentication credentials are missing.'], 401);
 
-            try {
+        $token = str_replace('Bearer ', '', $token);
 
-                $secretKey = Config::get('decrypted_jwt_token.jwt_secret_key');
-                $jwtAlgorithm = Config::get('decrypted_jwt_token.jwt_algorithm', 'HS256');
+        try {
 
-                $decryptedToken = (array)JWT::decode($token, new Key($secretKey, $jwtAlgorithm));
+            $secretKey = Config::get('decrypted_jwt_token.jwt_secret_key');
+            $jwtAlgorithm = Config::get('decrypted_jwt_token.jwt_algorithm', 'HS256');
 
-                $request->merge(['auth_user' => $decryptedToken]);
+            $decryptedToken = (array)JWT::decode($token, new Key($secretKey, $jwtAlgorithm));
 
-            } catch (SignatureInvalidException $e) {
-                return new JsonResponse(['token' => 'We could not verify your session. Please contact an administrator or try again later.'], 500);
-            } catch (ExpiredException $e) {
-                return new JsonResponse(['token' => 'Your login session has expired. Please log in again.'], 401);
-            } catch (BeforeValidException $e) {
-                return new JsonResponse(['token' => 'Your login session is not yet active.'], 401);
-            } catch (\Exception $e) {
-                return new JsonResponse(['token' => 'An error occurred while validating your session. Please try again later.'], 500);
-            }
+            $request->merge(['auth_user' => $decryptedToken]);
+        } catch (SignatureInvalidException $e) {
+            return new JsonResponse(['token' => 'We could not verify your session. Please contact an administrator or try again later.'], 500);
+        } catch (ExpiredException $e) {
+            return new JsonResponse(['token' => 'Your login session has expired. Please log in again.'], 401);
+        } catch (BeforeValidException $e) {
+            return new JsonResponse(['token' => 'Your login session is not yet active.'], 401);
+        } catch (\Exception $e) {
+            return new JsonResponse(['token' => 'An error occurred while validating your session. Please try again later.'], 500);
         }
 
         return $next($request);
