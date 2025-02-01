@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
-abstract class BaseRepository
+class BaseRepository
 {
     protected Model $model;
     public static array $allowedOperators = ['=', '!=', '>', '<', '>=', '<=', 'like'];
