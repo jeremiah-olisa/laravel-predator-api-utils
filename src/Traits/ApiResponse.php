@@ -58,4 +58,18 @@ trait ApiResponse
 
         return [$data, $paginated];
     }
+
+    /**
+     * The function no_response generates a JSON response indicating a successful request without any data.
+     *
+     * @param string $message The message to include in the response. Default is 'No content'.
+     * @param int $code The HTTP status code for the response. Defaults to 204 (No Content).
+     * 
+     * @return JsonResponse The `no_response` function returns an empty JSON response with the specified message and status code.
+     */
+    public function no_response(string $message = 'No content', int $code = 204): JsonResponse
+    {
+        return new JsonResponse(['status' => "$code No Content", 'message' => $message], $code);
+    }
+
 }

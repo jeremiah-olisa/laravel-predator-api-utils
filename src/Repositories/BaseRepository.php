@@ -364,4 +364,33 @@ class BaseRepository
     {
         return $this->model->newQuery()->count();
     }
+
+    /**
+     * Perform a DB operation inside a transaction.
+     *
+     * @param \Closure $callback
+     * @return mixed
+     * @throws \Exception
+     */
+    public function transaction(\Closure $callback)
+    {
+        // Start a transaction
+        DB::beginTransaction();
+
+        try {
+            // Execute the callback function, passing in the transaction context
+            $result = $callback();
+
+            // Commit the transaction
+            DB::commit();
+
+            return $result;
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of failure
+            DB::rollBack();
+
+            // Re-throw the exception to handle it further or log it
+            throw $e;
+        }
+    }
 }
