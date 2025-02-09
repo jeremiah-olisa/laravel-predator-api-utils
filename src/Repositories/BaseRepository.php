@@ -365,6 +365,16 @@ class BaseRepository
         return $this->model->newQuery()->count();
     }
 
+    public function newQuery(): Builder
+    {
+        return $this->model->newQuery();
+    }
+   
+    public function model(): Model
+    {
+        return $this->model;
+    }
+
     /**
      * Perform a DB operation inside a transaction.
      *
