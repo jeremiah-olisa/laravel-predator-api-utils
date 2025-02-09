@@ -10,7 +10,7 @@ This package provides a collection of utility classes and traits to streamline c
 
 ## ⚠️⚠️ Disclaimer ⚠️⚠️
 
-> This package aims to reduce boilerplate code often encountered in my Laravel projects by providing reusable components. 
+> This package aims to reduce boilerplate code often encountered in "MY LARAVEL PROJECTS" by providing reusable components. 
 > It was created based on my personal preferences and may not be suitable for all projects or development styles. 
 > It is not intended to be a comprehensive solution for all Laravel development needs and may require customization for specific requirements.
 
