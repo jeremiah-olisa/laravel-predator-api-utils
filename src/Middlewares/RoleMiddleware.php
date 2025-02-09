@@ -43,16 +43,34 @@ class RoleMiddleware
         // Get the user's role (replace this with your actual logic to get the user's role)
         $userRole = $decryptedJWToken->getUserRole();
 
+        // Get the case-sensitivity setting and error message from the config
+        $caseSensitive = config('role_check.case_sensitive', false);  // Default to false (insensitive)
+        $errorMessageTemplate = config('role_check.error_message', 'You do not have the authorized role to access this route.');
+
+        // If case-insensitive, convert both user role and roles to lowercase
+        if (!$caseSensitive) {
+            $userRole = strtolower($userRole);
+            $roles = array_map('strtolower', $roles);
+        }
+
         // Check if the user has one of the required roles
         if ($userRole && in_array($userRole, $roles)) {
             return $next($request);
         }
 
-        // If the user doesn't have the required role
+        // Replace placeholders in the error message
+        $errorMessage = str_replace(
+            [':user_role', ':required_roles'],
+            [$userRole, implode(', ', $roles)],
+            $errorMessageTemplate
+        );
+
+        // If the user doesn't have the required role, return the error response
         return $this->api_response(
-            "You do not have the authorized role to access this route",
+            $errorMessage,
             null,
             403
         );
     }
+
 }
